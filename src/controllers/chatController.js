@@ -5,23 +5,25 @@ const Memory = require("../models/Memory");
 const Streak = require("../models/Streak");
 const { generateAIResponse } = require("../services/aiService");
 
-// CREATE CHAT (IMPORTANT - YOU WERE MISSING THIS BEFORE)
 const createChat = async (req, res) => {
   try {
-    const { userId, title } = req.body;
+    const { userId, title } = req.body; // ✅ TEMP SIMPLE
 
     const chat = await Chat.create({
       userId,
       title: title || "New Reflection"
     });
 
-    res.json(chat);
+    res.json({
+      success: true,
+      chat
+    });
+
   } catch (err) {
     console.error("❌ CREATE CHAT ERROR:", err);
     res.status(500).json({ error: err.message });
   }
 };
-
 
 
 const saveMemory = async (userId, message) => {
